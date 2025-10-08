@@ -28,5 +28,10 @@ namespace Bank
                 _customerName = value;
             } 
         }
+        public double Balance 
+        {
+            get => _balance; 
+            private set => _balance = value;
+        }
     }
 }
