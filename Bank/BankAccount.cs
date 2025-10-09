@@ -8,24 +8,28 @@ namespace Bank
 {
     public class BankAccount
     {
-        private string _customerName;
+        private Customer _customer;
         private double _balance;
 
-        public BankAccount(string customerName, double balance)
+        public BankAccount(Customer customer, double balance)
         {
-            _customerName = customerName;
+            _customer = customer;
+            if (balance < 0)
+            {
+                throw new ArgumentException("O saldo inicial não pode ser negativo");
+            }
             _balance = balance;
         }
 
-        public string CustomerName 
+        public Customer Customer 
         {
             get
             {
-                return _customerName;
+                return _customer;
             }
             private set
             {
-                _customerName = value;
+                _customer = value;
             } 
         }
         public double Balance 
