@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,8 +11,12 @@ namespace Bank
     {
         private Customer _customer;
         private double _balance;
+        private long _number;
+        private static double _saldoTotal = 0;
+        private static long _ContaMaiorSaldo;
+        private static double _MaiorSaldo = -1;
 
-        public BankAccount(Customer customer, double balance)
+        public BankAccount(Customer customer, long number, double balance)
         {
             _customer = customer;
             if (balance < 0)
@@ -19,6 +24,9 @@ namespace Bank
                 throw new ArgumentException("O saldo inicial não pode ser negativo");
             }
             _balance = balance;
+            _number = number;
+            SaldoTotal(balance);
+            ContaMaiorSaldo(balance, number);
         }
 
         public Customer Customer 
@@ -36,6 +44,27 @@ namespace Bank
         {
             get => _balance; 
             private set => _balance = value;
+        }
+
+        public long Number 
+        { 
+            get => _number; 
+            private set => _number = value; 
+        }
+
+        public static double SaldoTotal(double valor)
+        {
+            return _saldoTotal += valor;
+        }
+
+        public static long ContaMaiorSaldo(double balance, long number)
+        {
+            if(_MaiorSaldo < balance)
+            {
+                _MaiorSaldo = balance;
+                _ContaMaiorSaldo = number;
+            }
+            return _ContaMaiorSaldo;
         }
     }
 }
