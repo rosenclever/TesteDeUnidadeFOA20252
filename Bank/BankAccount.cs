@@ -72,5 +72,10 @@ namespace Bank
             get => _MaiorSaldo; 
             private set => value = _MaiorSaldo; 
         }
+
+        public void Charge(double value)
+        {
+            Balance += value;
+        }
     }
 }
