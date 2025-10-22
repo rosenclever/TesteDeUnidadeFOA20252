@@ -15,3 +15,5 @@ Console.WriteLine($"O saldo total inicial das duas contas é {saldoTotalInicial}
 
 Console.WriteLine($"O saldo total geral é {BankAccount.SaldoTotal}");
 
+Console.WriteLine($"A conta com maior saldo é {BankAccount.ContaMaiorSaldo} cujo saldo é {BankAccount.MaiorSaldo}");
+

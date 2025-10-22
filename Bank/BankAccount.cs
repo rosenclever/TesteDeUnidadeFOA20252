@@ -59,12 +59,18 @@ namespace Bank
 
         public static long ContaMaiorSaldo(double balance, long number)
         {
-            if(_MaiorSaldo < balance)
+            if(MaiorSaldo < balance)
             {
-                _MaiorSaldo = balance;
+                MaiorSaldo = balance;
                 _ContaMaiorSaldo = number;
             }
             return _ContaMaiorSaldo;
+        }
+
+        public static double MaiorSaldo 
+        { 
+            get => _MaiorSaldo; 
+            private set => value = _MaiorSaldo; 
         }
     }
 }
