@@ -29,7 +29,7 @@ namespace TestBank
             double valorDeposito = -500;
 
            
-            //Verificacao
+            //ação e Verificacao
             Assert.ThrowsException<ArgumentException>(() => account1.Charge(valorDeposito));
         }
     }
