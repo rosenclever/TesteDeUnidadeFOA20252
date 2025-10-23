@@ -6,7 +6,7 @@ namespace TestBank
     public sealed class BankAccountTest
     {
         [TestMethod]
-        public void ChargeTest()
+        public void ChargePositiveValueTest()
         {
             //cenario
             Customer customer1 = new Customer("cliente Teste", "1122334455", "12345678901", 2000);
@@ -19,6 +19,18 @@ namespace TestBank
 
             //verificação
             Assert.AreEqual(saldoEsperado, account1.Balance);
+        }
+
+        public void ChargeNegativeValueTest()
+        {
+            //cenario
+            Customer customer1 = new Customer("cliente Teste", "1122334455", "12345678901", 2000);
+            BankAccount account1 = new BankAccount(customer1, 111, 1000);
+            double valorDeposito = -500;
+
+           
+            //Verificacao
+            Assert.ThrowsException<ArgumentException>(() => account1.Charge(valorDeposito));
         }
     }
 }

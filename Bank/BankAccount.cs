@@ -75,6 +75,8 @@ namespace Bank
 
         public void Charge(double value)
         {
+            if (value < 0)
+                throw new ArgumentException("O valor do deposito deverá ser positivo");
             Balance += value;
         }
     }
