@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Bank
 {
@@ -25,8 +26,7 @@ namespace Bank
             }
             _balance = balance;
             _number = number;
-            TotalBalance(balance);
-            AccountBiggestBalance(balance, number);
+            UpdateClassProperties();
         }
 
         public Customer Customer 
@@ -52,25 +52,32 @@ namespace Bank
             private set => _number = value; 
         }
 
-        public static decimal TotalBalance(decimal valor)
+        public static decimal UpdateTotalBalance(decimal valor)
         {
             return _totalBalance += valor;
         }
 
-        public static long AccountBiggestBalance(decimal balance, long number)
+        public static decimal TotalBalance { get => _totalBalance; }
+
+        public static void UpdateAccountBiggestBalance(decimal balance, long number)
         {
             if(BiggestBalance < balance)
             {
                 BiggestBalance = balance;
-                _accountBiggestBalance = number;
+                AccountBiggestBalance = number;
             }
-            return _accountBiggestBalance;
+        }
+
+        public static long  AccountBiggestBalance
+        { 
+            get => _accountBiggestBalance; 
+            private set => _accountBiggestBalance = value;
         }
 
         public static decimal BiggestBalance 
         { 
             get => _biggestBalance; 
-            private set => value = _biggestBalance; 
+            private set => _biggestBalance = value;
         }
 
         public void Deposit(decimal value)
@@ -78,6 +85,13 @@ namespace Bank
             if (value < 0)
                 throw new ArgumentException("O valor do deposito deverá ser positivo");
             Balance += value;
+            UpdateClassProperties();
+        }
+
+        private void UpdateClassProperties()
+        {
+            UpdateTotalBalance(this.Balance);
+            UpdateAccountBiggestBalance(this.Balance, this.Number);
         }
     }
 }
