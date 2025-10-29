@@ -10,13 +10,13 @@ namespace Bank
     public class BankAccount
     {
         private Customer _customer;
-        private double _balance;
+        private decimal _balance;
         private long _number;
-        private static double _saldoTotal = 0;
-        private static long _ContaMaiorSaldo;
-        private static double _MaiorSaldo = -1;
+        private static decimal _totalBalance = 0;
+        private static long _accountBiggestBalance;
+        private static decimal _biggestBalance = -1;
 
-        public BankAccount(Customer customer, long number, double balance)
+        public BankAccount(Customer customer, long number, decimal balance)
         {
             _customer = customer;
             if (balance < 0)
@@ -25,8 +25,8 @@ namespace Bank
             }
             _balance = balance;
             _number = number;
-            SaldoTotal(balance);
-            ContaMaiorSaldo(balance, number);
+            TotalBalance(balance);
+            AccountBiggestBalance(balance, number);
         }
 
         public Customer Customer 
@@ -40,7 +40,7 @@ namespace Bank
                 _customer = value;
             } 
         }
-        public double Balance 
+        public decimal Balance 
         {
             get => _balance; 
             private set => _balance = value;
@@ -52,28 +52,28 @@ namespace Bank
             private set => _number = value; 
         }
 
-        public static double SaldoTotal(double valor)
+        public static decimal TotalBalance(decimal valor)
         {
-            return _saldoTotal += valor;
+            return _totalBalance += valor;
         }
 
-        public static long ContaMaiorSaldo(double balance, long number)
+        public static long AccountBiggestBalance(decimal balance, long number)
         {
-            if(MaiorSaldo < balance)
+            if(BiggestBalance < balance)
             {
-                MaiorSaldo = balance;
-                _ContaMaiorSaldo = number;
+                BiggestBalance = balance;
+                _accountBiggestBalance = number;
             }
-            return _ContaMaiorSaldo;
+            return _accountBiggestBalance;
         }
 
-        public static double MaiorSaldo 
+        public static decimal BiggestBalance 
         { 
-            get => _MaiorSaldo; 
-            private set => value = _MaiorSaldo; 
+            get => _biggestBalance; 
+            private set => value = _biggestBalance; 
         }
 
-        public void Charge(double value)
+        public void Deposit(decimal value)
         {
             if (value < 0)
                 throw new ArgumentException("O valor do deposito deverá ser positivo");
